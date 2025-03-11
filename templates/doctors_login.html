@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Doctor Login - Wingersofttouch{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="hero-section">
+        <div class="dashboard-section animate-card">
+            <h2 class="section-title">Doctor Login</h2>
+            <hr class="section-line">
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <div class="form-group">
+                    {{ form.admin_name.label }}: {{ form.admin_name(class="input-field animate-input") }}
+                </div>
+                <div class="form-group">
+                    {{ form.admin_password.label }}: {{ form.admin_password(class="input-field animate-input") }}
+                </div>
+                <button type="submit" class="btn btn-primary animate-btn" data-sound="hover">Login</button>
+            </form>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <a href="{{ url_for('login') }}" class="btn btn-secondary animate-btn" data-sound="hover">Back to User Login</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

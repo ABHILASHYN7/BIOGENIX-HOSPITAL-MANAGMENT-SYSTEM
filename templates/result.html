@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Result - Wingersofttouch</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="gradient-bg">
+    <header class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='wingersofttouch_logo.png') }}" alt="Wingersofttouch Logo" class="logo-img">
+            <span class="hospital-text animate-move">Biogenix Hospital</span>
+        </div>
+        <nav class="nav">
+            <a href="{{ url_for('index') }}" class="nav-link">Home</a>
+            <a href="{{ url_for('symptom_analyzer') }}" class="nav-link">Symptom Analysis</a>
+            <a href="{{ url_for('login') }}" class="nav-link">Login</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="hero-section">
+            <div class="container slide-in">
+                <div class="dashboard-section animate-card result-card">
+                    <h2 class="section-title">Your Health Analysis</h2>
+                    {% if result.disease %}
+                        <div class="analysis-card">
+                            <p class="result-text">Possible Disease: {{ result.disease|capitalize }}</p>
+                            <p class="result-description">{{ result.description }}</p>
+                            <h3 class="sub-title">Recommendations:</h3>
+                            <ul class="recommendations">
+                                {% if result.recommendations.General %}
+                                    <li><strong>General:</strong>
+                                        <ul>
+                                            {% for rec in result.recommendations.General %}
+                                                <li>{{ rec }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                                {% if result.recommendations.Medications %}
+                                    <li><strong>Medications:</strong>
+                                        <ul>
+                                            {% for med in result.recommendations.Medications %}
+                                                <li>{{ med }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                                {% if result.recommendations.Workouts %}
+                                    <li><strong>Workouts:</strong>
+                                        <ul>
+                                            {% for workout in result.recommendations.Workouts %}
+                                                <li>{{ workout }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                            <p class="disclaimer">Please consult a healthcare professional for accurate diagnosis and treatment.</p>
+                        </div>
+                    {% else %}
+                        <div class="analysis-card">
+                            <p class="result-text">No disease identified. Please try again or consult a doctor.</p>
+                        </div>
+                    {% endif %}
+                    <div class="button-group">
+                        <a href="{{ url_for('symptom_analyzer') }}" class="btn btn-primary animate-btn" data-sound="hover">Analyze Again</a>
+                        <a href="{{ url_for('index') }}" class="btn btn-secondary animate-btn" data-sound="hover">Back to Home</a>
+                    </div>
+                </div>
+            </div>
+            <h2 class="hero-text animate-pulse">Your Health, Our Priority</h2>
+        </div>
+    </div>
+
+    <!-- Canvas for particle, confetti, and sparkle animations -->
+    <canvas id="animation-canvas" class="animation-canvas"></canvas>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

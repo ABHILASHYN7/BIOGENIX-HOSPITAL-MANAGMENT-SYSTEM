@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login - Wingersofttouch</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="gradient-bg">
+    <header class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='wingersofttouch_logo.png') }}" alt="Wingersofttouch Logo" class="logo-img">
+            <span class="hospital-text animate-move">Biogenix Hospital</span>
+        </div>
+        <nav class="nav">
+            <a href="{{ url_for('index') }}" class="nav-link">Home</a>
+            <a href="{{ url_for('login') }}" class="nav-link active">Login</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="hero-section">
+            <div class="login-container">
+                <div class="login-card animate-card">
+                    <h2 class="section-title">Secure Login for Healthcare Access</h2>
+                    <form method="POST" class="login-form">
+                        <label class="form-label">Role:</label>
+                        <select name="role" class="input-field animate-input" required onchange="toggleAdminFields()">
+                            <option value="">Select Role</option>
+                            <option value="patient">Patient</option>
+                            <option value="admin">Admin</option>
+                        </select>
+
+                        <!-- Admin-specific fields (hidden by default, shown via JavaScript) -->
+                        <div id="admin-fields" style="display: none;">
+                            <label class="form-label">Username:</label>
+                            <input type="text" name="admin_name" placeholder="Enter Username" class="input-field animate-input">
+                            <label class="form-label">Password:</label>
+                            <input type="password" name="admin_password" placeholder="Enter Password" class="input-field animate-input">
+                        </div>
+
+                        <input type="submit" value="LOGIN" class="btn btn-primary animate-btn" data-sound="hover">
+                    </form>
+                </div>
+            </div>
+            <h2 class="hero-text animate-pulse">Your Health, Our Priority</h2>
+        </div>
+    </div>
+
+    <!-- Canvas for particle, confetti, and sparkle animations -->
+    <canvas id="animation-canvas" class="animation-canvas"></canvas>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        function toggleAdminFields() {
+            const role = document.querySelector('select[name="role"]').value;
+            const adminFields = document.getElementById('admin-fields');
+            adminFields.style.display = role === 'admin' ? 'block' : 'none';
+        }
+    </script>
+</body>
+</html>

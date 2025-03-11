@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Career - Wingersofttouch</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="gradient-bg">
+    <header class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='wingersofttouch_logo.png') }}" alt="Wingersofttouch Logo" class="logo-img">
+            <span class="hospital-text animate-move">Biogenix Hospital</span>
+        </div>
+        <nav class="nav">
+            <a href="{{ url_for('index') }}" class="nav-link">Home</a>
+            <a href="{{ url_for('symptom_analyzer') }}" class="nav-link">Symptom Analysis</a>
+            <a href="{{ url_for('login') }}" class="nav-link">Login</a>
+            <a href="{{ url_for('about') }}" class="nav-link">About</a>
+            <a href="{{ url_for('contact') }}" class="nav-link">Contact Us</a>
+            <a href="{{ url_for('locations') }}" class="nav-link">Locations</a>
+            <a href="{{ url_for('career') }}" class="nav-link active">Career</a>
+            <a href="{{ url_for('wellness_zone') }}" class="nav-link">Wellness Zone</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="hero-section">
+            <div class="container slide-in">
+                <div class="dashboard-section animate-card career-card">
+                    <h2 class="section-title">Career Opportunities</h2>
+                    <p class="career-text">Join our team at Biogenix Hospital and contribute to world-class healthcare. We are currently hiring for the following positions:</p>
+                    <ul class="career-list">
+                        <li><strong>Doctor - Specialist</strong><br>Experience in cardiology or neurology, full-time, AnyCity.</li>
+                        <li><strong>Nurse - Registered</strong><br>Certified RN, part-time or full-time, Downtown branch.</li>
+                        <li><strong>IT Support Specialist</strong><br>Tech support for healthcare systems, full-time, Northside branch.</li>
+                    </ul>
+                    <p class="career-text">To apply, send your resume to careers@biogenixhospital.com or call +1-800-123-4567.</p>
+                </div>
+            </div>
+            <h2 class="hero-text animate-pulse">Your Health, Our Priority</h2>
+        </div>
+    </div>
+
+    <!-- Canvas for particle, confetti, and sparkle animations -->
+    <canvas id="animation-canvas" class="animation-canvas"></canvas>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

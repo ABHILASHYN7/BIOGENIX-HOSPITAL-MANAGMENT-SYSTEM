@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Medical History - Wingersofttouch{% endblock %}
+
+{% block content %}
+<div class="main-content">
+    <div class="hero-section">
+        <div class="dashboard-section animate-card">
+            <h2 class="section-title">View Patient Medical History</h2>
+            <hr class="section-line">
+            <form method="POST" class="search-form">
+                <input type="text" name="uid" placeholder="Enter Patient UID (e.g., 550e8400-e29b-41d4-a716-446655440000)" class="input-field animate-input" value="{{ uid if uid else '' }}">
+                <button type="submit" class="btn btn-primary animate-btn" data-sound="hover">Search</button>
+            </form>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="flash-{{ category }}">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            {% if history %}
+                <div class="history-content">
+                    <h3>Patient: {{ patient_name }} (UID: {{ uid }})</h3>
+                    {% if doctor_name %}
+                        <p><strong>Assigned Doctor:</strong> {{ doctor_name }}</p>
+                    {% else %}
+                        <p><strong>Assigned Doctor:</strong> Not assigned</p>
+                    {% endif %}
+                    <h4>Medical History:</h4>
+                    <ul class="history-list">
+                        {% for entry in history %}
+                            <li>
+                                <strong>Disease:</strong> {{ entry.disease }}<br>
+                                <strong>Symptoms:</strong> {{ entry.symptoms|replace(',', ', ') }}<br>
+                                <strong>Comments:</strong> {{ entry.comments if entry.comments else "No comments" }}<br>
+                                <strong>Date:</strong> {{ entry.timestamp }}<br>
+                                <a href="{{ url_for('add_comment', history_id=entry.id) }}" class="btn btn-secondary animate-btn" data-sound="hover">Add/Edit Comment</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <a href="{{ url_for('admin') }}" class="btn btn-primary animate-btn" data-sound="hover">Back to Admin</a>
+            {% else %}
+                {% if uid %}
+                    <p>No history found for this patient.</p>
+                {% else %}
+                    <p>Enter a patient UID to view their medical history.</p>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

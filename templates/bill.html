@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bill - Wingersofttouch</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="gradient-bg">
+    <header class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='wingersofttouch_logo.png') }}" alt="Wingersofttouch Logo" class="logo-img">
+            <h1>Wingersofttouch</h1>
+        </div>
+        <nav class="nav">
+            <a href="{{ url_for('index') }}" class="nav-link">Home</a>
+            <a href="{{ url_for('admin') }}" class="nav-link">Admin Dashboard</a>
+            <a href="{{ url_for('login') }}" class="nav-link">Login</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="container slide-in">
+            <div class="bill-card animate-card">
+                <h1>Invoice</h1>
+                <div class="bill-details">
+                    <p><strong>Billing To:</strong> {{ appointment[1] }} (Patient)</p>
+                    <p><strong>Address:</strong> 123 Health St, Anywhere, AnyCity, 12345</p>
+                    <p><strong>Invoice No:</strong> {{ appointment[0] }}</p>
+                    <p><strong>Invoice Date:</strong> {{ appointment[6].strftime("%d %b %Y") }}</p>
+                    <p><strong>Due Date:</strong> {{ (appointment[6] + timedelta(days=30)).strftime("%d %b %Y") }}</p>
+                </div>
+
+                <table class="dashboard-table">
+                    <thead>
+                        <tr>
+                            <th>Item Name</th>
+                            <th>Price</th>
+                            <th>Qty</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Medical Checkup</td>
+                            <td>$0.00</td>
+                            <td>1</td>
+                            <td>$0.00</td>
+                        </tr>
+                        <tr>
+                            <td>Medicine 1</td>
+                            <td>$0.00</td>
+                            <td>0</td>
+                            <td>$0.00</td>
+                        </tr>
+                        <tr>
+                            <td>Medicine 2</td>
+                            <td>$0.00</td>
+                            <td>0</td>
+                            <td>$0.00</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="bill-totals">
+                    <p><strong>Sub Total:</strong> $0.00</p>
+                    <p><strong>Tax (0%):</strong> $0.00</p>
+                    <p><strong>Total:</strong> $0.00</p>
+                </div>
+                <p><strong>Signature:</strong> ____________________</p>
+                <p>Wingersofttouch | +1-123-456-7890 | info@wingersofttouch.com</p>
+            </div>
+            <div class="button-group">
+                <a href="{{ url_for('admin') }}" class="btn btn-secondary animate-btn">Back to Dashboard</a>
+                <a href="{{ url_for('bill', appointment_id=appointment[0]) }}" class="btn btn-primary animate-btn">Download PDF</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

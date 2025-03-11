@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Admin Dashboard - Wingersofttouch</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body class="gradient-bg">
+    <header class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='wingersofttouch_logo.png') }}" alt="Wingersofttouch Logo" class="logo-img">
+            <span class="hospital-text animate-move">Biogenix Hospital</span>
+        </div>
+        <nav class="nav">
+            <a href="{{ url_for('index') }}" class="nav-link">Home</a>
+            <a href="{{ url_for('admin') }}" class="nav-link active">Admin Dashboard</a>
+            <a href="{{ url_for('login') }}" class="nav-link">Login</a>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="hero-section">
+            <div class="container slide-in">
+                <!-- Add Doctor Section -->
+                <div class="dashboard-section animate-card">
+                    <h2 class="section-title">Add Doctor</h2>
+                    <form method="POST" class="dashboard-form">
+                        <input type="text" name="name" placeholder="Name" required class="input-field animate-input">
+                        <input type="email" name="email" placeholder="Email" required class="input-field animate-input">
+                        <input type="text" name="mobile" placeholder="Mobile" required class="input-field animate-input">
+                        <input type="text" name="specialization" placeholder="Specialization" required class="input-field animate-input">
+                        <input type="submit" name="add_doctor" value="Add Doctor" class="btn btn-primary animate-btn" data-sound="hover">
+                    </form>
+                </div>
+
+                <!-- Manage Doctors Section (Update/Delete) -->
+                <div class="dashboard-section animate-card">
+                    <h2 class="section-title">Manage Doctors</h2>
+                    <form method="POST" class="dashboard-form">
+                        <select name="doctor_id" class="input-field animate-input" required>
+                            {% for doctor in doctors %}
+                                <option value="{{ doctor[0] }}">{{ doctor[1] }} (ID: {{ doctor[0] }})</option>
+                            {% endfor %}
+                        </select>
+                        <input type="text" name="name" placeholder="New Name" class="input-field animate-input">
+                        <input type="email" name="email" placeholder="New Email" class="input-field animate-input">
+                        <input type="text" name="mobile" placeholder="New Mobile" class="input-field animate-input">
+                        <input type="text" name="specialization" placeholder="New Specialization" class="input-field animate-input">
+                        <div class="button-group">
+                            <input type="submit" name="update_doctor" value="Update Doctor" class="btn btn-primary animate-btn" data-sound="hover">
+                            <input type="submit" name="delete_doctor" value="Delete Doctor" class="btn btn-secondary animate-btn" data-sound="hover">
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Doctors List -->
+                <div class="dashboard-section animate-card">
+                    <h2 class="section-title">Doctors</h2>
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Specialization</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for doctor in doctors %}
+                                <tr class="animate-row">
+                                    <td>{{ doctor[0] }}</td>
+                                    <td>{{ doctor[1] }}</td>
+                                    <td>{{ doctor[2] }}</td>
+                                    <td>{{ doctor[3] }}</td>
+                                    <td>{{ doctor[4] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Add Patient Section -->
+                <div class="dashboard-section animate-card">
+                    <h2 class="section-title">Add Patient</h2>
+                    <form method="POST" class="dashboard-form">
+                        <input type="text" name="name" placeholder="Name" required class="input-field animate-input">
+                        <input type="email" name="email" placeholder="Email" required class="input-field animate-input">
+                        <input type="text" name="mobile" placeholder="Mobile" required class="input-field animate-input">
+                        <input type="text" name="blood_group" placeholder="Blood Group" required class="input-field animate-input">
+                        <input type="number" name="doctor_id" placeholder="Doctor ID" required class="input-field animate-input">
+                        <input type="submit" name="add_patient" value="Add Patient" class="btn btn-primary animate-btn" data-sound="hover">
+                    </form>
+                </div>
+
+                <!-- Manage Patients Section (Delete) -->
+                <div class="dashboard-section animate-card">
+                    <h2 class="section-title">Manage Patients</h2>
+                    <form method="POST" class="dashboard-form">
+                        <select name="patient_id" class="input-field animate-input" required>
+                            {% for patient in patients %}
+                                <option value="{{ patient[0] }}">{{ patient[1] }} (ID: {{ patient[0] }})</option>
+                            {% endfor %}
+                        </select>
+                        <input type="submit" name="delete_patient" value="Delete Patient" class="btn btn-secondary animate-btn" data-sound="hover">
+                    </form>
+                </div>
+
+                <!-- Patients List -->
+                <div class="dashboard-section animate-card">
+                    <h2 class="section-title">Patients</h2>
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Mobile</th>
+                                <th>Blood Group</th>
+                                <th>Doctor ID</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for patient in patients %}
+                                <tr class="animate-row">
+                                    <td>{{ patient[0] }}</td>
+                                    <td>{{ patient[1] }}</td>
+                                    <td>{{ patient[2] }}</td>
+                                    <td>{{ patient[3] }}</td>
+                                    <td>{{ patient[4] }}</td>
+                                    <td>{{ patient[5] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Recent Appointments -->
+                <div class="dashboard-section animate-card">
+                    <h2 class="section-title">Appointments</h2>
+                    <table class="dashboard-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Patient Name</th>
+                                <th>Age</th>
+                                <th>Gender</th>
+                                <th>Problem</th>
+                                <th>Doctor ID</th>
+                                <th>Timestamp</th>
+                                <th>Verified</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for appointment in appointments %}
+                                <tr class="animate-row">
+                                    <td>{{ appointment[0] }}</td>
+                                    <td>{{ appointment[1] }}</td>
+                                    <td>{{ appointment[2] }}</td>
+                                    <td>{{ appointment[3] }}</td>
+                                    <td>{{ appointment[4] }}</td>
+                                    <td>{{ appointment[5] }}</td>
+                                    <td>{{ appointment[6] }}</td>
+                                    <td>{{ "Yes" if appointment[7] else "No" }}</td>
+                                    <td>
+                                        <form method="POST">
+                                            <input type="hidden" name="appointment_id" value="{{ appointment[0] }}">
+                                            {% if not appointment[7] %}
+                                                <input type="submit" name="verify_appointment" value="Verify & Generate Bill" class="btn btn-small btn-primary animate-btn" data-sound="hover">
+                                            {% else %}
+                                                <input type="submit" name="delete_appointment" value="Delete" class="btn btn-small btn-secondary animate-btn" data-sound="hover">
+                                            {% endif %}
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="button-group">
+                    <a href="{{ url_for('logout') }}" class="btn btn-secondary animate-btn" data-sound="hover">Logout</a>
+                </div>
+            </div>
+            <h2 class="hero-text animate-pulse">Your Health, Our Priority</h2>
+        </div>
+    </div>
+
+    <!-- Canvas for particle, confetti, and sparkle animations -->
+    <canvas id="animation-canvas" class="animation-canvas"></canvas>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
